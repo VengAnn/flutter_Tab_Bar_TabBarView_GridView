@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class DetailApp extends StatelessWidget {
@@ -36,6 +37,8 @@ class _MyCartProductsState extends State<MyCartProducts> {
   @override
   Widget build(BuildContext context) {
     var product = widget.product;
+    var f = NumberFormat('\$#,##0.00');
+    //
     return Card(
       elevation: 3,
       child: Column(
@@ -45,7 +48,10 @@ class _MyCartProductsState extends State<MyCartProducts> {
             image: NetworkImage(product['Photo']),
           ),
           Row(
-            children: [],
+            children: [
+              Text('Name: ${product['name']}'),
+              Text('Price: ${f.format(product['price'])}'),
+            ],
           ),
         ],
       ),

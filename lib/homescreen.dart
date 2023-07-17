@@ -22,7 +22,7 @@ class _HomescreenState extends State<Homescreen>
       {
         'id': 1,
         'name': 'Water',
-        'Price': 1.2,
+        'price': 1.2,
         'Catagory': 'Soft drink',
         'Country': 'KH',
         'Photo':
@@ -44,7 +44,7 @@ class _HomescreenState extends State<Homescreen>
       {
         'id': 200,
         'name': 'tigger beer',
-        'Price': 2.5,
+        'price': 2.5,
         'Catagory': 'Beer',
         'Country': 'KH',
         'Photo':
