@@ -109,6 +109,7 @@ class _MyCartProductsState extends State<MyCartProducts> {
     var product = widget.product;
     var f = NumberFormat('\$#,##0.00');
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -132,6 +133,14 @@ class _MyCartProductsState extends State<MyCartProducts> {
               ),
             ],
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Text('Ok'),
+            ),
+          ],
         );
       },
     );
