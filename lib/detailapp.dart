@@ -12,12 +12,39 @@ class DetailApp extends StatelessWidget {
     return Scaffold(
       body: GridView.count(
         crossAxisCount: 2,
-        children: List.generate(
-          products.length,
-          (index) => MyCartProducts(
-            products[index],
-          ),
-        ),
+        children: products.length != 0
+            ? List.generate(
+                products.length,
+                (index) => MyCartProducts(
+                  products[index],
+                ),
+              )
+            : [
+                Center(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 150,
+                        ),
+                        Container(
+                          width: 100,
+                          height: 100,
+                          color: Colors.red,
+                          child: const Text(
+                            'No Products!',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
       ),
     );
   }
@@ -47,14 +74,66 @@ class _MyCartProductsState extends State<MyCartProducts> {
             width: 120,
             image: NetworkImage(product['Photo']),
           ),
+          //
+          Container(
+            height: 3,
+            color: Colors.blue,
+          ),
           Row(
             children: [
-              Text('Name: ${product['name']}'),
-              Text('Price: ${f.format(product['price'])}'),
+              Expanded(
+                child: Text(
+                  'Name:\n ${product['name']}',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Expanded(child: Text('Price: ${f.format(product['price'])}')),
             ],
+          ),
+          //
+          Container(
+            height: 30,
+            child: ElevatedButton(
+              onPressed: () => _onPressDetail(),
+              child: Text('Detail'),
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  void _onPressDetail() {
+    var product = widget.product;
+    var f = NumberFormat('\$#,##0.00');
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Products Informations'),
+          content: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Text('ID: ${product['id']}\n'
+                    'Name: ${product['name']}\n'
+                    'Price: ${f.format(product['price'])}\n'
+                    'Catagory: ${product['Catagory']}\n'
+                    'Country: ${product['Country']}\n'),
+              ),
+              //
+              Expanded(
+                child: Image(
+                  width: 100,
+                  image: NetworkImage(product['Photo']),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
